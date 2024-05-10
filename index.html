@@ -4,19 +4,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
     <title>Snake</title>
+    <style>
+        body {
+            min-height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            background-color: gray;
+        }
+        
+        #game-board {
+            background-color: black;
+            width: 100vmin;
+            height: 100vmin;
+            display: grid;
+            grid-template-columns: repeat(21, 1fr);
+            grid-template-rows: repeat(21, 1fr);
+        }
+        
+        .snake {
+            background-color: green;
+            border: .25vmin solid black;
+        }
+        
+        .food {
+            background: red;
+            border: .25vmin solid black;
+        }
+    </style>
+
 </head>
 
 <body>
-    <div id="gameBorder">
-
-        <canvas id="gameCanvas" width="500" height="500"></canvas>
-
-    </div>
-
-    <script src="app.js">
-    </script>
+    <div id="game-board"></div>
 </body>
+<script src="app.js"></script>
 
 </html>
