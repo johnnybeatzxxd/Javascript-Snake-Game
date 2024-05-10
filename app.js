@@ -1,25 +1,18 @@
-const gameBorder = document.getElementById("gameBorder");
+const gameBoard = document.getElementById("game-board");
 
-const dot = document.createElement("div");
-dot.style.width = "20px";
-dot.style.height = "20px";
-dot.style.backgroundColor = "red";
-dot.style.position = "absolute";
-gameBorder.appendChild(dot);
+let snakeBody = [{ x: 1, y: 5 }];
 
-let x = 10;
-let y = 10;
+function update() {
 
-function updateDotPosition() {
-    dot.style.left = x + "px";
-    dot.style.top = y + "px";
+    snakeBody = snakeBody.map(segment => ({ x: segment.x + 1, y: segment.y }));
+    gameBoard.innerHTML = '';
+    snakeBody.forEach(segment => {
+        const snakeElement = document.createElement("div");
+        snakeElement.style.gridRowStart = segment.x;
+        snakeElement.style.gridColumnStart = segment.y;
+        snakeElement.classList.add("snake");
+        gameBoard.appendChild(snakeElement);
+    });
 }
 
-
-updateDotPosition();
-setInterval(() => {
-    console.log(x, y)
-    x = x + 1;
-
-    updateDotPosition()
-}, 10000)
+setInterval(update, 500); // Corrected to pass the function reference
