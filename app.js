@@ -39,6 +39,7 @@ function update() {
         snakeBody.unshift(newHead);
         snakeBody.pop();
     }
+    if (snakeBody[0].x > 22 || snakeBody[0].y > 22 || snakeBody[0].x < 0 || snakeBody[0].y < 0) gameOver()
 
 }
 
