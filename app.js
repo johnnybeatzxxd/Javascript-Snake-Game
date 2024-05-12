@@ -9,7 +9,7 @@ function drawBoard() {
     // create the snake
     snakeBody.forEach(body => {
         let snake = document.createElement("div");
-        snake.style.backgroundColor = "green";
+        snake.className = "snake";
         // set snake position
         snake.style.gridColumnStart = body.x;
         snake.style.gridRowStart = body.y;
