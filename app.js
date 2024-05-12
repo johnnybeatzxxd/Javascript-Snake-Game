@@ -68,7 +68,13 @@ document.addEventListener('keydown', function(event) {
 });
 
 
+function gameOver() {
 
+    alert("GAME OVER!");
+    snakeBody = [{ x: 11, y: 11 }]
+    direction = null;
+
+}
 setInterval(() => {
     drawBoard()
     update()
