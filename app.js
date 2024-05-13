@@ -74,7 +74,13 @@ function gameOver() {
     changeSnakeSpeed(snakeSpeed);
 }
 
-
+function changeSnakeSpeed(snakeSpeed) {
+    clearInterval(intervalId);
+    intervalId = setInterval(() => {
+        drawBoard()
+        update()
+    }, snakeSpeed);
+}
 
 document.addEventListener('keydown', function(event) {
     // Up arrow
@@ -99,3 +105,8 @@ document.addEventListener('keydown', function(event) {
     }
 
 });
+
+let intervalId = setInterval(() => {
+    drawBoard()
+    update()
+}, snakeSpeed);
