@@ -17,29 +17,46 @@ function drawBoard() {
         gameBoard.appendChild(snake);
     });
 
+    if (foodPosition === null) createFood()
+    let food = document.createElement("div");
+    food.className = "food";
+    food.style.gridColumnStart = foodPosition.x;
+    food.style.gridRowStart = foodPosition.y;
+    gameBoard.appendChild(food);
 }
 
-function createFood() {}
+function createFood() {
+
+    foodPosition = { x: Math.floor(Math.random() * 22) + 1, y: Math.floor(Math.random() * 22) + 1 }
+    console.log(foodPosition);
+}
 
 function update() {
+    let newHead = null;
     if (direction === "up") {
-        let newHead = { x: snakeBody[0].x, y: snakeBody[0].y - 1 };
+        newHead = { x: snakeBody[0].x, y: snakeBody[0].y - 1 };
         snakeBody.unshift(newHead);
         snakeBody.pop();
     } else if (direction === "down") {
-        let newHead = { x: snakeBody[0].x, y: snakeBody[0].y + 1 };
+        newHead = { x: snakeBody[0].x, y: snakeBody[0].y + 1 };
         snakeBody.unshift(newHead);
         snakeBody.pop();
     } else if (direction === "left") {
-        let newHead = { x: snakeBody[0].x - 1, y: snakeBody[0].y };
+        newHead = { x: snakeBody[0].x - 1, y: snakeBody[0].y };
         snakeBody.unshift(newHead);
         snakeBody.pop();
     } else if (direction === "right") {
-        let newHead = { x: snakeBody[0].x + 1, y: snakeBody[0].y };
+        newHead = { x: snakeBody[0].x + 1, y: snakeBody[0].y };
         snakeBody.unshift(newHead);
         snakeBody.pop();
     }
+    //console.log(newHead);
+
     if (snakeBody[0].x > 22 || snakeBody[0].y > 22 || snakeBody[0].x < 0 || snakeBody[0].y < 0) gameOver()
+    if (newHead in snakeBody) {
+        console.log("i eat it");
+    }
+
 
 }
 
