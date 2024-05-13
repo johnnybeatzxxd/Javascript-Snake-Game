@@ -1,8 +1,8 @@
 const gameBoard = document.getElementById("game-board"); // board
-let snakeBody = [{ x: 11, y: 11 }, { x: 12, y: 11 }, { x: 13, y: 11 }, { x: 14, y: 11 }];
+let snakeBody = [{ x: 11, y: 11 }, ];
 let direction = null;
 let foodPosition = null;
-
+let snakeSpeed = 250;
 
 function drawBoard() {
     gameBoard.innerHTML = ''; // refresh the board
@@ -25,40 +25,56 @@ function drawBoard() {
     gameBoard.appendChild(food);
 }
 
-function createFood() {
-
-    foodPosition = { x: Math.floor(Math.random() * 22) + 1, y: Math.floor(Math.random() * 22) + 1 }
-    console.log(foodPosition);
-}
-
 function update() {
     let newHead = null;
+
     if (direction === "up") {
         newHead = { x: snakeBody[0].x, y: snakeBody[0].y - 1 };
         snakeBody.unshift(newHead);
-        snakeBody.pop();
+
     } else if (direction === "down") {
         newHead = { x: snakeBody[0].x, y: snakeBody[0].y + 1 };
         snakeBody.unshift(newHead);
-        snakeBody.pop();
+
     } else if (direction === "left") {
         newHead = { x: snakeBody[0].x - 1, y: snakeBody[0].y };
         snakeBody.unshift(newHead);
-        snakeBody.pop();
+
     } else if (direction === "right") {
         newHead = { x: snakeBody[0].x + 1, y: snakeBody[0].y };
         snakeBody.unshift(newHead);
-        snakeBody.pop();
-    }
-    //console.log(newHead);
 
+    }
+
+    // Check if the snake hit the boarder
     if (snakeBody[0].x > 22 || snakeBody[0].y > 22 || snakeBody[0].x < 0 || snakeBody[0].y < 0) gameOver()
-    if (newHead in snakeBody) {
-        console.log("i eat it");
+        // Check if the snake eat the food
+    if (foodPosition.x === snakeBody[0].x && foodPosition.y === snakeBody[0].y) {
+        createFood();
+        snakeSpeed = snakeSpeed - 20;
+        changeSnakeSpeed(snakeSpeed)
+    } else {
+        direction != null ? snakeBody.pop() : null;
     }
-
 
 }
+
+function createFood() {
+
+    foodPosition = { x: Math.floor(Math.random() * 21) + 1, y: Math.floor(Math.random() * 21) + 1 }
+    console.log(foodPosition);
+}
+
+function gameOver() {
+
+    alert("GAME OVER!");
+    snakeBody = [{ x: 11, y: 11 }]
+    direction = null;
+    snakeSpeed = 250
+    changeSnakeSpeed(snakeSpeed);
+}
+
+
 
 document.addEventListener('keydown', function(event) {
     // Up arrow
@@ -83,22 +99,3 @@ document.addEventListener('keydown', function(event) {
     }
 
 });
-
-
-function gameOver() {
-
-    alert("GAME OVER!");
-    snakeBody = [{ x: 11, y: 11 }]
-    direction = null;
-
-}
-setInterval(() => {
-    drawBoard()
-    update()
-
-}, 100);
-// window.requestAnimationFrame(() => {
-//     drawBoard()
-//     update()
-//     console.log(alhp);
-// })
