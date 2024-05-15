@@ -5,7 +5,8 @@ let foodPosition = null;
 let snakeSpeed = 250;
 
 function drawBoard() {
-    gameBoard.innerHTML = ''; // refresh the board
+    // refresh the board
+    gameBoard.innerHTML = '';
     // create the snake
     snakeBody.forEach(body => {
         let snake = document.createElement("div");
@@ -17,11 +18,14 @@ function drawBoard() {
         gameBoard.appendChild(snake);
     });
 
+    // create the food
     if (foodPosition === null) createFood()
     let food = document.createElement("div");
     food.className = "food";
+    // set the food position
     food.style.gridColumnStart = foodPosition.x;
     food.style.gridRowStart = foodPosition.y;
+    // add the food to the board
     gameBoard.appendChild(food);
 }
 
@@ -46,12 +50,14 @@ function update() {
 
     }
 
-    // Check if the snake hit the boarder
-    if (snakeBody[0].x > 22 || snakeBody[0].y > 22 || snakeBody[0].x < 0 || snakeBody[0].y < 0) gameOver()
-        // Check if the snake eat the food
+    // Check if the snake hit the board
+    if (snakeBody[0].x > 22 || snakeBody[0].y > 22 || snakeBody[0].x < 0 || snakeBody[0].y < 0) gameOver();
+    // Check if the snake head hits itself
+    if (snakeBody.slice(1).some(body => body.x === snakeBody[0].x && body.y === snakeBody[0].y)) gameOver();
+    // Check if the snake eat the food
     if (foodPosition.x === snakeBody[0].x && foodPosition.y === snakeBody[0].y) {
         createFood();
-        snakeSpeed = snakeSpeed - 20;
+        snakeSpeed = snakeSpeed - 10;
         changeSnakeSpeed(snakeSpeed)
     } else {
         direction != null ? snakeBody.pop() : null;
