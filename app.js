@@ -52,8 +52,16 @@ function update() {
 
     // Check if the snake hit the board
     if (snakeBody[0].x > 22 || snakeBody[0].y > 22 || snakeBody[0].x < 0 || snakeBody[0].y < 0) gameOver();
-    // Check if the snake head hits itself
-    if (snakeBody.slice(1).some(body => body.x === snakeBody[0].x && body.y === snakeBody[0].y)) gameOver();
+    // Check if the snake eat itself
+    for (let i = 1; i < snakeBody.length; i++) {
+        if (snakeBody[i].x === newHead.x && snakeBody[i].y === newHead.y) {
+            console.log(`{${snakeBody[i].x}:${snakeBody[i].y}}`);
+            console.log(snakeBody[0]);
+            gameOver();
+
+            break;
+        }
+    }
     // Check if the snake eat the food
     if (foodPosition.x === snakeBody[0].x && foodPosition.y === snakeBody[0].y) {
         createFood();
